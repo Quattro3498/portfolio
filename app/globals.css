@@ -1,26 +1,123 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-error-dim: #d53d18;
+  --color-inverse-primary: #006f16;
+  --color-surface-container-lowest: #000000;
+  --color-outline-variant: #484848;
+  --color-inverse-on-surface: #555555;
+  --color-on-background: #ffffff;
+  --color-inverse-surface: #f9f9f9;
+  --color-surface-container-high: #1f1f1f;
+  --color-on-primary-container: #005a10;
+  --color-surface-dim: #0e0e0e;
+  --color-on-tertiary-fixed: #4e3944;
+  --color-on-primary-fixed: #00440a;
+  --color-surface-bright: #2c2c2c;
+  --color-on-tertiary: #6b535f;
+  --color-surface-container-highest: #262626;
+  --color-secondary-fixed-dim: #a7e495;
+  --color-error: #ff7351;
+  --color-secondary-dim: #a7e495;
+  --color-on-primary: #006413;
+  --color-on-secondary-fixed: #124a0c;
+  --color-tertiary-fixed: #fadae9;
+  --color-on-secondary-fixed-variant: #316727;
+  --color-primary: #9cff93;
+  --color-surface: #0e0e0e;
+  --color-on-tertiary-fixed-variant: #6c5561;
+  --color-surface-container-low: #131313;
+  --color-on-secondary-container: #a3e091;
+  --color-tertiary-container: #fadae9;
+  --color-on-surface-variant: #ababab;
+  --color-tertiary-dim: #ebccda;
+  --color-secondary-container: #1b5114;
+  --color-on-primary-fixed-variant: #006513;
+  --color-primary-container: #00fc40;
+  --color-primary-fixed: #00fc40;
+  --color-on-tertiary-container: #624b57;
+  --color-on-error-container: #ffd2c8;
+  --color-on-error: #450900;
+  --color-surface-container: #191919;
+  --color-on-secondary: #275d1e;
+  --color-tertiary-fixed-dim: #ebccda;
+  --color-surface-tint: #9cff93;
+  --color-background: #0e0e0e;
+  --color-tertiary: #ffecf3;
+  --color-error-container: #b92902;
+  --color-outline: #757575;
+  --color-secondary-fixed: #b5f3a2;
+  --color-primary-fixed-dim: #00ec3b;
+  --color-on-surface: #ffffff;
+  --color-primary-dim: #00ec3b;
+  --color-secondary: #b5f3a2;
+  --color-surface-variant: #262626;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-headline: var(--font-space-grotesk);
+  --font-body: var(--font-space-grotesk);
+  --font-label: var(--font-space-grotesk);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --radius: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-full: 9999px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0e0e0e;
+  color: #ffffff;
+  cursor: default;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.matrix-bg {
+  background: linear-gradient(rgba(14, 14, 14, 0.9), rgba(14, 14, 14, 0.9)),
+    repeating-linear-gradient(0deg, rgba(156, 255, 147, 0.03) 0px, rgba(156, 255, 147, 0.03) 1px, transparent 1px, transparent 2px);
+  background-size: 100% 100%, 100% 4px;
+}
+
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 50%, rgba(156, 255, 147, 0.02) 50%);
+  background-size: 100% 4px;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.glow-text {
+  text-shadow: 0 0 10px rgba(156, 255, 147, 0.5), 0 0 20px rgba(156, 255, 147, 0.3);
+}
+
+.glow-border:hover {
+  box-shadow: 0 0 15px rgba(156, 255, 147, 0.15);
+}
+
+.terminal-header-dots::before {
+  content: '● ● ●';
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: rgba(156, 255, 147, 0.3);
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.cursor-blink {
+  animation: blink 1s infinite;
 }
