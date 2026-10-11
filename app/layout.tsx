@@ -1,51 +1,67 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
+import "lenis/dist/lenis.css";
 import "./globals.css";
+import SmoothScroll from "@/components/SmoothScroll";
+import { profile } from "@/lib/content";
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  variable: '--font-space-grotesk',
-})
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const description =
+  "Portfolio di Simone Quattromini, sviluppatore fullstack. App web, bot e API: i miei progetti su GitHub.";
 
 export const metadata: Metadata = {
-  title: "Simone Quattromini | Full-Stack Developer",
-  description: "Portfolio of Simone Quattromini, a full-stack developer specializing in React, Node.js, and scalable architectures. Check out my projects and code.",
+  metadataBase: new URL(profile.siteUrl),
+  title: `${profile.name} | ${profile.role}`,
+  description,
   openGraph: {
-    title: "Simone Quattromini - Portfolio",
-    description: "Explore Simone Quattromini's GitHub projects and repositories.",
-    url: "https://simonequattromini.dreamdev.store",
-    siteName: "Simone Quattromini Portfolio",
+    title: `${profile.name} | ${profile.role}`,
+    description,
+    url: profile.siteUrl,
+    siteName: `${profile.name} Portfolio`,
+    locale: "it_IT",
     type: "website",
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: "Simone Quattromini",
-    jobTitle: "Full-Stack Developer",
-    url: "https://simonequattromini.dreamdev.store",
-    sameAs: [
-      "https://github.com/Quattro3498",
-      "https://www.linkedin.com/in/simone-quattromini/"
-    ]
-  };
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  jobTitle: profile.role,
+  url: profile.siteUrl,
+  email: profile.email,
+  worksFor: { "@type": "Organization", name: "Travelsoftware" },
+  sameAs: [profile.github, profile.linkedin],
+};
 
+// Imposta il tema prima del primo paint per evitare il flash.
+const themeScript = `(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="dark"}})();`;
+
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
-      className={`${spaceGrotesk.variable} h-full antialiased`}
+      lang="it"
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body className="min-h-dvh">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <SmoothScroll />
         {children}
       </body>
     </html>
